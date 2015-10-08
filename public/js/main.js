@@ -2,12 +2,29 @@ var app = angular.module('myApp', []);
 
 app.controller('mainController', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
 
-	$scope.trustHtml = $sce.trustAsResourceUrl;
+	$scope.trustResource = $sce.trustAsResourceUrl;
 
+	$http.get("/getvideos")
+		.then(function(response) {
+			$scope.videos = response.data;
+		});
 
-	$http.get("/videos")
-	.success(function(response) {
-		$scope.videos = response;
-	});
+	$scope.submitVideo = function() {
+		$http.post('/addvideo', $scope.newVideo)
+			.then(function(response) {
+				$scope.videos = response.data;
+			});
+		if ($scope.videos.length >= 7) {
+			$scope.videosFull = true;
+		}
+	};
+
+	$scope.vote = function(index) {
+		$scope.send = { indexnum : index};
+		$http.post('/vote', $scope.send)
+			.then(function(response) {
+				$scope.videos = response.data;
+			});
+	};
 
 }]);

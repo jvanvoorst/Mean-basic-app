@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 	<title>Contest App</title>
-	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+
 </head>
-<body>
-	<form method="POST" action="/formSubmit">
-	 	<input name="name" type="text" placeholder="Name">
-	 	<input name="url" type="text" placeholder="url">
-	 	<input name="title" type="text" placeholder="Title">
-	 	<input name="description" type="text" placeholder="Description">
+<body ng-controller="mainController">
+
+	<form ng-submit="submitVideo()" ng-hide="videosFull">
+	 	<input ng-model="newVideo.name" placeholder="Name">
+	 	<input ng-model="newVideo.url" placeholder="url">
+	 	<input ng-model="newVideo.title" placeholder="Title">
+	 	<input ng-model="newVideo.description" placeholder="Description">
 	 	<input type="submit">
 	</form>
 
+	<div ng-show="videosFull">
+		<h2>Sorry Maximum videos reached</h2>
+	</div>
+
+	<div ng-repeat="video in videos | orderBy : '-votes'">
+		<h2>{{video.name}}</h2>
+		<iframe width="560" height="315" src="{{trustResource(video.url)}}" frameborder="0" allowfullscreen></iframe>
+		<h3> Votes: {{video.votes}}</h3>
+		<button ng-click="vote($index)">Vote for me</button>
+	</div>
 	
+	<script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>
