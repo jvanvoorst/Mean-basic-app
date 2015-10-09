@@ -27,4 +27,20 @@ app.controller('mainController', ['$scope', '$http', '$sce', function($scope, $h
 			});
 	};
 
+	$scope.winner = function() {
+		$http.get('/winner')
+			.then(function(response) {
+				$scope.videos = response.data;
+			});
+		$scope.hideVote = true;
+	};
+
+	$scope.nextRound = function() {
+		$http.get('/nextround')
+			.then(function(response) {
+				$scope.videos = response.data;
+			});
+		$scope.hideVote = false;
+	}
+
 }]);

@@ -12,4 +12,12 @@ module.exports = {
 		videoModel.videos[req.body.indexnum].votes++;
 		res.send(videoModel.videos);
 	},
+	winner : function(req, res) {
+		videoModel.winner();
+		res.send(videoModel.videos);
+	},
+	nextround : function(req, res) {
+		videoModel.nextround();
+		res.send(videoModel.videos)
+	},
 };

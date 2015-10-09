@@ -15,14 +15,6 @@ var videoController = require('./controllers/videoController')
 // Routes
 app.get('/', function(req, res) {
 	res.sendFile('/html/index.html', { root : './public' });
-	// console.log('string')
-	// 	console.log(videos.length)
-	// if (videos.length >= 2) {
-	// 	res.send("Sorry submitions limited to 8");
-	// } 
-	// else {
- 	//  		res.sendFile('/html/index.html', { root : './public' });
-	// }
 });
 
 app.get('/getvideos', videoController.getvideos);
@@ -30,6 +22,10 @@ app.get('/getvideos', videoController.getvideos);
 app.post('/addvideo', videoController.addvideo); 
 
 app.post('/vote', videoController.vote);
+
+app.get('/winner', videoController.winner);
+
+app.get('/nextround', videoController.nextround);
 
 // Creating Server and Listening for Connections
 var port = 3000
